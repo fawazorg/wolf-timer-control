@@ -1,0 +1,14 @@
+[
+  {
+    "name": "contorl_default_command",
+    "value": "!كنتر"
+  },
+  {
+    "name": "contorl_cancel_command",
+    "value": "الغاء"
+  },
+  {
+    "name": "contorl_default_message",
+    "value": "!وقت"
+  }
+]
