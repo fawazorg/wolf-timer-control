@@ -15,7 +15,7 @@ const ERRPR_NOTFOUND = "";
  */
 const create = async (command) => {
   if (GROUPS.has(command.targetGroupId)) {
-    return await api.messaging().sendMessage(command, "فيه جولة يالطيب");
+    return await api.messaging().sendMessage(command, "(n) توجد كنترة حالياً.");
   }
   let [count, time] = parseArgument(command.argument);
   if (!(count !== undefined && time !== undefined)) {
@@ -29,7 +29,7 @@ const create = async (command) => {
   if (!(checkNumpers(count) && checkNumpers(time))) {
     return await api
       .messaging()
-      .sendMessage(command, "أكتب عدد الجولات و الوقت زين يالطيب");
+      .sendMessage(command, "(n) قم بإدخال عدد الجولات و الوقت بشكل صحيح");
   }
   count = parseInt(api.utility().number().toEnglishNumbers(count));
   time = parseInt(api.utility().number().toEnglishNumbers(time));
@@ -45,10 +45,12 @@ const cancel = async (command) => {
   if (!GROUPS.has(command.targetGroupId)) {
     return await api
       .messaging()
-      .sendMessage(command, "ما فيه كنترة حالية يالطيب");
+      .sendMessage(command, "(n) لا توجد كنترة في الغرفة.");
   }
   GROUPS.delete(command.targetGroupId);
-  return await api.messaging().sendMessage(command, "الغينا لك الكنترة يالطيب");
+  return await api
+    .messaging()
+    .sendMessage(command, "(y) تم الغاء الكنترة في هذه الغرفة");
 };
 /**
  * @param {import("wolf.js").CommandObject} command
@@ -61,10 +63,7 @@ const loop = async (command, count, time) => {
     if (!GROUPS.has(command.targetGroupId)) {
       break;
     }
-    // start rount +i
-    await api.messaging().sendMessage(command, `بدت الجولة رقم ${i + 1}`);
     // count 3
-    await api.utility().delay(750);
     await countTo3(command);
     // Time!
     await api.messaging().sendMessage(command, "!وقت");
